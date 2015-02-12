@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block body %}
+   
+   
+        
+        <table>
+                <colgroup>
+                <col style = "col_id">
+                <col style = "col_category">
+                <col style = "col_priority">
+                <col style = "col_description">
+                <col style = "col_op">
+                </colgroup>
+                <tbody>
+                <tr>
+                
+                <th> Id</th><th> Category</th><th> Priority</th><th> Description</th><th> Operation</th>
+                
+                </tr>
+                
+                {% for task in tasks %}
+                        <tr>
+                        <td>{{ task['id'] }} </td>
+                        <td>{{ task['category'] }} </td>
+                        <td>{{ task['priority'] }} </td>
+                        <td>{{ task['description'] }} </td>
+                        <td>
+                        {% if session.logged_in %}
+                        <form class="operation_form" action ="{{url_for('delete')}}" method=post>
+                        <input type="hidden" name=id value={{ task['id'] }}">
+                        <input type="hidden" name=category value={{ task['category'] }}">
+                        <input type="hidden" name=priority value={{ task['priority'] }}">
+                        <input type="hidden" name=description value={{ task['description'] }}">
+                        <input type=submit value=Delete>
+                        </form>
+                        
+                        
+                        
+                        {% endif %}                        
+                        
+                        </td>
+                        </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+        
+
+
+{% endblock %}
